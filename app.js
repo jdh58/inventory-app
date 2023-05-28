@@ -23,7 +23,9 @@ const fs = require('fs/promises');
 const mongoose = require('mongoose');
 
 async function main() {
-  const mongodb = await fs.readFile('./mongostring.txt', { encoding: 'utf8' });
+  const mongodb =
+    process.env.MONGODB_URI ||
+    (await fs.readFile('./mongostring.txt', { encoding: 'utf8' }));
   console.log(mongodb);
   await mongoose.connect(mongodb);
 }
