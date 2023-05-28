@@ -7,4 +7,4 @@ block content
   div.itemlist
     for item in items 
       li 
-        a(href=item.url)= item.name
+        a(href=item.url) #{item.name} (#{item.category.name})

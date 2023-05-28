@@ -1,0 +1,15 @@
+extends layout 
+
+block content 
+
+  h1= title 
+
+  div.category-info 
+    h2= category.name 
+    h3= category.description
+
+  div.category-items
+    h4 Items in this category: 
+      for item in items
+        li 
+          a(href=item.url)= item.name 

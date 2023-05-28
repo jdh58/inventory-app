@@ -6,9 +6,9 @@ block content
 
   form(action="" method="POST") 
     label(for="name") Name:
-    input(type="text" id="name" name="name" minLength=1 maxLength=100) 
+    input(type="text" id="name" name="name" minLength=1 maxLength=100 value=(category===undefined ? null : category.name )) 
     label(for="description") Description:
-    input(type="text" id="description" name="description" minLength=10 maxLength=280)
+    input(type="text" id="description" name="description" minLength=10 maxLength=280 value=(category===undefined ? null : category.description))
     button(type="submit") Submit 
 
   if errors 

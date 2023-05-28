@@ -16,10 +16,12 @@ exports.getIndexPage = asyncHandler(async (req, res, next) => {
 
 exports.getDetailsPage = asyncHandler(async (req, res, next) => {
   const category = await Category.findById(req.params.id).exec();
+  const items = await Item.find({ category: req.params.id }).exec();
 
-  res.render('categoryDetailPage', {
+  res.render('categoryDetails', {
     title: `${category.name} Details`,
     category,
+    items,
   });
 });
 

@@ -1,0 +1,14 @@
+extends layout 
+
+
+block content
+
+  h1= title 
+  
+  h2= item.name 
+  h3= item.description 
+  h4 $#{item.price}.00
+
+  p We have #{item.instock} in stock currently.
+
+  p This item is in the #{item.category.name.toLowerCase()} category.

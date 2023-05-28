@@ -17,7 +17,7 @@ exports.getIndexPage = asyncHandler(async (req, res, next) => {
 exports.getDetailsPage = asyncHandler(async (req, res, next) => {
   const item = await Item.findById(req.params.id).populate('category').exec();
 
-  res.render('itemDetailPage', {
+  res.render('itemDetails', {
     title: `${item.name} Details`,
     item,
   });
@@ -55,7 +55,7 @@ exports.postCreateForm = [
     .withMessage('Product name must be at least 2 characters long.'),
   body('description')
     .trim()
-    .isLength({ min: 10 })
+    .isLength({ min: 15 })
     .escape()
     .withMessage('Description must be at least 10 characters long'),
   body('category')
