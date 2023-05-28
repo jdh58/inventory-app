@@ -97,7 +97,7 @@ exports.postCreateForm = [
 exports.getUpdateForm = asyncHandler(async (req, res, next) => {
   const [item, categories] = await Promise.all([
     Item.findById(req.params.id).populate('category').exec(),
-    Category.find({}, 'title').exec(),
+    Category.find({}, 'name').exec(),
   ]);
 
   res.render('itemForm', {
