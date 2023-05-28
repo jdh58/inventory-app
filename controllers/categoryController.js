@@ -112,7 +112,7 @@ exports.postUpdateForm = [
 
 exports.getDeleteForm = asyncHandler(async (req, res, next) => {
   // If there are existing items with this category, do not show form and show error
-  const existingItems = await Item.findById({ category: req.params.id });
+  const existingItems = await Item.find({ category: req.params.id });
   const category = await Category.findById(req.params.id);
 
   if (existingItems.length > 0) {

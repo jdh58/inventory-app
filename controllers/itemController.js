@@ -55,7 +55,7 @@ exports.postCreateForm = [
     .withMessage('Product name must be at least 2 characters long.'),
   body('description')
     .trim()
-    .isLength({ min: 15 })
+    .isLength({ min: 10 })
     .escape()
     .withMessage('Description must be at least 10 characters long'),
   body('category')

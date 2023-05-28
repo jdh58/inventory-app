@@ -13,3 +13,8 @@ block content
       for item in items
         li 
           a(href=item.url)= item.name 
+
+  li 
+    a(href=category.url + '/update') Update Category
+  li
+    a(href=category.url + '/delete') Delete Category
