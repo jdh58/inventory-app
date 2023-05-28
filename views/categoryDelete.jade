@@ -1,0 +1,17 @@
+extends layout 
+
+block content 
+
+  h1= title 
+
+  if existing 
+    p There are existing items using this category. You must delete those first.
+      for item in existingItems
+        li 
+          a(href=item.url) item.name
+
+
+  else 
+    p Are you sure you want to delete #{category.name}?
+    form(action="" method="POST")
+      button(type="submit") Delete 

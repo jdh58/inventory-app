@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav 
+      li
+        a(href='/inventory/categories') All Categories 
+      li
+        a(href='/inventory/items') All Items 
+      hr
+      li
+        a(href='/inventory/category/create') Create New Category 
+      li 
+        a(href='/inventory/item/create') Create New Item 
+
+    main 
+      block content

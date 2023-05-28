@@ -1,5 +1,8 @@
 const express = require('express');
-const route = express.Router();
+const router = express.Router();
+
+const categoryController = require('../controllers/categoryController');
+const itemController = require('../controllers/itemController');
 
 //
 /// CATEGORIES
@@ -8,14 +11,14 @@ const route = express.Router();
 // Get category index page (home page)
 router.get('/categories', categoryController.getIndexPage);
 
-// Get category details page
-router.get('/category/:id', categoryController.getDetailsPage);
-
 // Get category create form
 router.get('/category/create', categoryController.getCreateForm);
 
 // Post category on submit
 router.post('/category/create', categoryController.postCreateForm);
+
+// Get category details page
+router.get('/category/:id', categoryController.getDetailsPage);
 
 // Get category update form
 router.get('/category/:id/update', categoryController.getUpdateForm);
@@ -36,14 +39,14 @@ router.post('/category/:id/delete', categoryController.postDeleteForm);
 // Get item index page (home page)
 router.get('/items', itemController.getIndexPage);
 
-// Get item details page
-router.get('/item/:id', itemController.getDetailsPage);
-
 // Get item create form
 router.get('/item/create', itemController.getCreateForm);
 
 // Post item on submit
 router.post('/item/create', itemController.postCreateForm);
+
+// Get item details page
+router.get('/item/:id', itemController.getDetailsPage);
 
 // Get item update form
 router.get('/item/:id/update', itemController.getUpdateForm);
@@ -56,3 +59,5 @@ router.get('/item/:id/delete', itemController.getDeleteForm);
 
 // Post item deletion
 router.post('/item/:id/delete', itemController.postDeleteForm);
+
+module.exports = router;

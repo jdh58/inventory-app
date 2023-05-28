@@ -1,8 +1,35 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+  max-width: 1500px;
+  margin: auto;
+  display: flex;
+  gap: 50px;
+}
+
+nav {
+  width: 300px;
+}
+
+nav > li {
+  margin-left: 50px;
+}
+
+hr {
+  opacity: 50%;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form label {
+  font-size: 1.3rem;
+  font-weight: 500;
 }

@@ -6,7 +6,7 @@ const Category = require('../models/Category');
 const { body, validationResult } = require('express-validator');
 
 exports.getIndexPage = asyncHandler(async (req, res, next) => {
-  const items = Item.find().populate('category').exec();
+  const items = await Item.find().populate('category').exec();
 
   res.render('itemIndex', {
     title: 'All Items',
@@ -24,7 +24,7 @@ exports.getDetailsPage = asyncHandler(async (req, res, next) => {
 });
 
 exports.getCreateForm = asyncHandler(async (req, res, next) => {
-  const categories = await Category.find().projection({ title: 1 }).exec();
+  const categories = await Category.find({}, 'name').exec();
 
   res.render('itemForm', {
     title: `Create New Item`,
@@ -55,10 +55,14 @@ exports.postCreateForm = [
     .withMessage('Product name must be at least 2 characters long.'),
   body('description')
     .trim()
-    .isLength({ min: 30 })
+    .isLength({ min: 10 })
     .escape()
-    .withMessage('Description must be at least 30 characters long'),
-  body('category').trim().escape(),
+    .withMessage('Description must be at least 10 characters long'),
+  body('category')
+    .notEmpty()
+    .trim()
+    .withMessage('A category must be selected')
+    .escape(),
   body('price').escape(),
   body('instock').escape(),
 
@@ -74,9 +78,10 @@ exports.postCreateForm = [
 
     if (!errors.isEmpty()) {
       // There are errors, render the form again showing errors
-      const categories = await Category.find().projection({ title: 1 }).exec();
+      const categories = await Category.find({}, 'name').exec();
       res.render('itemForm', {
         title: `Create New Item`,
+        item: newItem,
         categories,
         errors: errors.errors,
       });
@@ -92,7 +97,7 @@ exports.postCreateForm = [
 exports.getUpdateForm = asyncHandler(async (req, res, next) => {
   const [item, categories] = await Promise.all([
     Item.findById(req.params.id).populate('category').exec(),
-    Category.find().projection({ title: 1 }).exec(),
+    Category.find({}, 'title').exec(),
   ]);
 
   res.render('itemForm', {
@@ -110,10 +115,14 @@ exports.postUpdateForm = [
     .withMessage('Product name must be at least 2 characters long.'),
   body('description')
     .trim()
-    .isLength({ min: 30 })
+    .isLength({ min: 10 })
     .escape()
-    .withMessage('Description must be at least 30 characters long'),
-  body('category').trim().escape(),
+    .withMessage('Description must be at least 10 characters long'),
+  body('category')
+    .notEmpty()
+    .trim()
+    .withMessage('A category must be selected')
+    .escape(),
   body('price').escape(),
   body('instock').escape(),
 
@@ -126,7 +135,7 @@ exports.postUpdateForm = [
       instock: req.body.instock,
       _id: req.params.id, // Same id because we want to update
     });
-    const categories = await Category.find().projection({ title: 1 }).exec();
+    const categories = await Category.find({}, 'name').exec();
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -160,5 +169,5 @@ exports.postDeleteForm = asyncHandler(async (req, res, next) => {
   await Item.findByIdAndRemove(req.params.id);
 
   // Redirect to the all items page
-  res.redirect('/');
+  res.redirect('/inventory/items');
 });
